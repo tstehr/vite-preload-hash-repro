@@ -1,6 +1,9 @@
+import { preloadListHash } from './preload-list-hash.js';
+
 // Only difference to vite.config.a.js: the large chart chunk is no longer preloaded along with
 // the chunks that import it.
 export default {
+  plugins: [preloadListHash()],
   build: {
     outDir: 'dist-b',
     emptyOutDir: true,

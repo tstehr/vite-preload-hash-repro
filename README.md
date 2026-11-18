@@ -41,3 +41,18 @@ diff -ru dist-a/assets/index-II3NhJ1J.js dist-b/assets/index-II3NhJ1J.js
 
 Had the name followed the content, `diff` would report `Only in` lines for the
 two differently named files instead.
+
+## Workaround
+
+On this branch, both configs use `preload-list-hash.js`, a plugin that feeds
+the inputs of the preload lists (the `modulePreload` config, `base` and Vite's
+version) into the hash of every chunk with a dynamic import, via
+`augmentChunkHash`. The changed chunk then gets a new name:
+
+```
+Only in dist-b/assets: index-BCkQFd-b.js
+Only in dist-a/assets: index-C2XC8QmC.js
+diff -ru dist-a/index.html dist-b/index.html
+-  <script type="module" crossorigin src="/assets/index-C2XC8QmC.js"></script>
++  <script type="module" crossorigin src="/assets/index-BCkQFd-b.js"></script>
+```
